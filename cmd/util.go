@@ -132,7 +132,7 @@ func GitmojiSuggestions() []prompt.Suggest {
 	for _, gitmoji := range gitmojis {
 		suggestions = append(suggestions, prompt.Suggest{
 			Text:   gitmoji.Description,
-			Description: gitmoji.Emoji,
+			Description: "  " + gitmoji.Emoji + "  " ,
 		})
 	}
 	return suggestions
@@ -214,7 +214,7 @@ type PromptTheme struct {
 }
 
 var DefaultTheme = PromptTheme{
-	PrefixTextColor: prompt.Yellow, // fine
+	PrefixTextColor: prompt.Yellow,
 	SelectedSuggestionBGColor: prompt.Yellow,
 	SuggestionBGColor: prompt.Yellow,
 	SuggestionTextColor: prompt.DarkGray,
@@ -224,7 +224,7 @@ var DefaultTheme = PromptTheme{
 }
 
 var InvertedTheme = PromptTheme{
-	PrefixTextColor: prompt.Blue, // fine
+	PrefixTextColor: prompt.Blue,
 	SelectedSuggestionBGColor: prompt.Blue,
 	SuggestionBGColor: prompt.Blue,
 	SuggestionTextColor: prompt.LightGray,
