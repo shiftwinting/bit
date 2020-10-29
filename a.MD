@@ -126,3 +126,6 @@ bit save -e
 combine bit & bitcomplete into one binary?
 
 basic usage tracking
+
+show recently edited files when checking out a branch
+git log --name-status -10 path/to/dir
