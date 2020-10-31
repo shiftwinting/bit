@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/rs/zerolog/log"
+	"github.com/thoas/go-funk"
 	"os"
 	"strings"
 	"time"
@@ -38,6 +39,11 @@ var ShellCmd = &cobra.Command{
 				return
 			}
 			RunGitCommandWithArgs(parsedArgs)
+
+			// post hijack
+			_ = PostGitCommandHijackOccurred(parsedArgs, completerSuggestionMap, cmd.Version)
+			// end post hijack
+
 			return
 		}
 
@@ -204,6 +210,20 @@ func HijackGitCommandOccurred(args []string, suggestionMap map[string]func() []p
 	}
 	return false
 }
+
+func PostGitCommandHijackOccurred(args []string, suggestionMap map[string]func() []prompt.Suggest, version string) bool {
+	sub := args[0]
+	deleteFlagUsed := funk.Contains(args, "--delete") || funk.Contains(args, "d")
+	if sub == "tag" && deleteFlagUsed {
+		yes := AskConfirm("Delete origin tag as well")
+		if yes {
+			// delete origin tag
+		}
+	}
+	return false
+}
+
+
 
 func GetVersion() string {
 	return ShellCmd.Version
